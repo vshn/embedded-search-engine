@@ -39,7 +39,7 @@ function isEmptyOrBlank(s: string): boolean {
 }
 
 /**
-* Performs the actual search against the Lunr index.
+ * Performs the actual search against the Lunr index.
  * @param lunrIndex The Lunr.js index
  * @param files The repository of files
  * @param query Text to search
