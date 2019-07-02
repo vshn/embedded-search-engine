@@ -28,7 +28,9 @@ Use the following command:
 
 Test the search engine with a curl command piped to https://stedolan.github.io/jq/[jq]:
 
-`curl http://localhost:8081/search?q=backup --silent | jq`
+`curl http://localhost:8081/search?q=backup&c=20 --silent | jq`
+
+The `c` optional parameter specifies the number of results to return (by default, 10.)
 
 == Note for Extending Docker Image
 

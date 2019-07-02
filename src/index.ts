@@ -43,7 +43,7 @@ function isEmptyOrBlank(s: string): boolean {
  * @param lunrIndex The Lunr.js index
  * @param files The repository of files
  * @param query Text to search
- * @param count Number of items to return
+ * @param count (Optional, default 10) Number of items to return
  */
 function search(lunrIndex: lunr.Index, files: FileRepository, query: string, count = 10): SearchResult[] {
   if (isEmptyOrBlank(query)) {
@@ -51,7 +51,7 @@ function search(lunrIndex: lunr.Index, files: FileRepository, query: string, cou
   }
   const results: SearchResult[] = lunrIndex.search(query.trim())
     .slice(0, count)
-    .map(function (result: lunr.Index.Result) {
+    .map((result: lunr.Index.Result) => {
       return files[result.ref]
     })
   return results
@@ -61,14 +61,16 @@ function search(lunrIndex: lunr.Index, files: FileRepository, query: string, cou
 try {
   const app = express()
 
-  // These methods are synchronous, since the index is read once and held in memory
+  // These methods are synchronous, after all
+  // the index is only read once and then held in memory
   const files = getConfigSync('files.json') as FileRepository
   const lunrIndexSource = getConfigSync('lunr.json')
   const lunrIndex = lunr.Index.load(lunrIndexSource)
   const port = 3000
 
+  // API endpoint
   app.get('/search', (req: Request, res: Response) => {
-    res.send(search(lunrIndex, files, req.query.q))
+    res.send(search(lunrIndex, files, req.query.q, req.query.c))
   })
 
   app.listen(port, () => console.log(`Search engine listening on port ${port}`))
