@@ -1,0 +1,43 @@
+variables:
+  PROJECT_NAME: ckb-vshn-net
+  SEARCH_IMAGE: registry.appuio.ch/ckb-vshn-net/search:latest
+
+stages:
+  - build
+  - deploy
+
+.build-docker:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  tags:
+    - dockerbuild
+  script:
+    - docker login -u gitlab-ci -p ${APPUIO_REGISTRY_TOKEN} registry.appuio.ch
+    - docker pull $SEARCH_IMAGE || true
+    - docker build --cache-from $SEARCH_IMAGE -t $SEARCH_IMAGE .
+    - docker push $SEARCH_IMAGE
+    # - if [ ${CI_COMMIT_REF_NAME} == "master" ]; then docker push $SEARCH_IMAGE; fi
+
+develop:build:
+  extends: .build-docker
+  except:
+    - master
+
+master:build:
+  extends: .build-docker
+  only:
+    - master
+
+master:deploy:
+  stage: deploy
+  image: docker.io/appuio/oc:v3.9
+  environment:
+    name: production
+    url: https://ckb.vshn.net
+  script:
+    - oc -n ${PROJECT_NAME} apply -f deployment/
+    - oc -n ${PROJECT_NAME} rollout latest dc/ckb-vshn-net
+  only:
+    - master
