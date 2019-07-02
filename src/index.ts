@@ -6,6 +6,7 @@ import express from 'express'
 import path from 'path'
 import fs from 'fs'
 import lunr from 'lunr'
+import 'log-timestamp';
 
 type FileRepository = { [ref: string]: SearchResult }
 
@@ -46,6 +47,7 @@ function isEmptyOrBlank(s: string): boolean {
  * @param count (Optional, default 10) Number of items to return
  */
 function search(lunrIndex: lunr.Index, files: FileRepository, query: string, count = 10): SearchResult[] {
+  console.log(`Searching for "${query}" (count = ${count})`)
   if (isEmptyOrBlank(query)) {
     return []
   }
