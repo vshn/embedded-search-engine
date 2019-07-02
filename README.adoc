@@ -2,7 +2,37 @@
 
 This search engine is meant to be embedded inside a pod running an Antora-generated website, such as the VSHN handbook or the K8up documentation.
 
-It can be used in a Kubernetes pod, as a secondary container providing search services. The nginx configuration of the main container should redirect all requests beginning with `/search` to this container.
+It can be used in a Kubernetes pod, as a secondary container providing search services. The nginx configuration of the main container should redirect all requests beginning with `/search` to this container, for example:
+
+[source]
+----
+server {
+    # users are not allowed to listen on privileged ports
+    listen 8080;
+    server_name  localhost;
+
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+    }
+
+    # Redirect all searches to the Node.js app
+    # in the other container of the same pod.
+    location /search {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+----
 
 The search engine is written using https://www.typescriptlang.org/[TypeScript], compiled and run upon start.
 
