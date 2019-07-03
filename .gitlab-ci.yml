@@ -1,6 +1,6 @@
 variables:
   PROJECT_NAME: ckb-vshn-net
-  SEARCH_IMAGE: registry.appuio.ch/ckb-vshn-net/search:latest
+  SEARCH_IMAGE: registry.appuio.ch/search-engine/search-engine:latest
 
 stages:
   - build
@@ -27,17 +27,5 @@ develop:build:
 
 master:build:
   extends: .build-docker
-  only:
-    - master
-
-master:deploy:
-  stage: deploy
-  image: docker.io/appuio/oc:v3.9
-  environment:
-    name: production
-    url: https://ckb.vshn.net
-  script:
-    - oc -n ${PROJECT_NAME} apply -f deployment/
-    - oc -n ${PROJECT_NAME} rollout latest dc/ckb-vshn-net
   only:
     - master
