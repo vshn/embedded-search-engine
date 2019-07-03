@@ -1,6 +1,6 @@
-= Embeddable Search Engine
+= Embedded Search Engine
 
-Search engine meant to be embedded inside a pod running an Antora-generated website. Written using https://www.typescriptlang.org/[TypeScript], compiled and run upon start.
+Search engine meant to be embedded inside a Kubernetes / OpenShift pod running an Antora-generated website. Written using https://www.typescriptlang.org/[TypeScript], compiled and run upon start.
 
 == Running Locally
 
@@ -14,15 +14,15 @@ The server runs with this command:
 
 Run the following command:
 
-`docker build -t vshn/search-engine .`
+`docker build -t vshn/embedded-search-engine .`
 
-A prebuilt Docker image is available at https://hub.docker.com/r/vshn/search-engine[Docker Hub.]
+A prebuilt Docker image is available at https://hub.docker.com/r/vshn/embedded-search-engine[Docker Hub.]
 
 == Running the Search Engine
 
 Use the following command:
 
-`docker run -d -p 8081:3000 vshn/search-engine`
+`docker run -d -p 8081:3000 vshn/embedded-search-engine`
 
 Test the search engine with a curl command piped to https://stedolan.github.io/jq/[jq]:
 
