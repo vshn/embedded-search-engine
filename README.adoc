@@ -1,8 +1,6 @@
 = Embeddable Search Engine
 
-This search engine is meant to be embedded inside a pod running an Antora-generated website.
-
-The search engine is written using https://www.typescriptlang.org/[TypeScript], compiled and run upon start.
+Search engine meant to be embedded inside a pod running an Antora-generated website. Written using https://www.typescriptlang.org/[TypeScript], compiled and run upon start.
 
 == Running Locally
 
