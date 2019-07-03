@@ -1,6 +1,42 @@
 = Embeddable Search Engine
 
-This search engine is meant to be embedded inside a pod running an Antora-generated website, such as the VSHN handbook or the K8up documentation.
+This search engine is meant to be embedded inside a pod running an Antora-generated website.
+
+The search engine is written using https://www.typescriptlang.org/[TypeScript], compiled and run upon start.
+
+== Running Locally
+
+After cloning the repo, run `npm install` to install all the dependencies.
+
+The server runs with this command:
+
+`node_modules/.bin/ts-node src/index.ts`
+
+== Building the Docker Image
+
+Run the following command:
+
+`docker build -t vshn/search-engine .`
+
+A prebuilt Docker image is available at https://hub.docker.com/r/vshn/search-engine[Docker Hub.]
+
+== Running the Search Engine
+
+Use the following command:
+
+`docker run -d -p 8081:3000 vshn/search-engine`
+
+Test the search engine with a curl command piped to https://stedolan.github.io/jq/[jq]:
+
+`curl http://localhost:8081/search?q=backup&c=20 --silent | jq`
+
+The `c` optional parameter specifies the number of results to return (by default, 10.)
+
+== Note for Extending Docker Image
+
+For specific applications, the files `index/files.json` and `index/lunr.json` must be replaced with ad-hoc content extracted from other projects.
+
+== nginx Configuration
 
 It can be used in a Kubernetes pod, as a secondary container providing search services. The nginx configuration of the main container should redirect all requests beginning with `/search` to this container, for example:
 
@@ -33,35 +69,3 @@ server {
     }
 }
 ----
-
-The search engine is written using https://www.typescriptlang.org/[TypeScript], compiled and run upon start.
-
-== Running Locally
-
-After cloning the repo, run `npm install` to install all the dependencies.
-
-The server runs with this command:
-
-`node_modules/.bin/ts-node src/index.ts`
-
-== Building the Docker Image
-
-Run the following command:
-
-`docker build -t search .`
-
-== Running the Search Engine
-
-Use the following command:
-
-`docker run -d -p 8081:3000 search`
-
-Test the search engine with a curl command piped to https://stedolan.github.io/jq/[jq]:
-
-`curl http://localhost:8081/search?q=backup&c=20 --silent | jq`
-
-The `c` optional parameter specifies the number of results to return (by default, 10.)
-
-== Note for Extending Docker Image
-
-For specific applications, the files `index/files.json` and `index/lunr.json` must be replaced with ad-hoc content extracted from other projects.
