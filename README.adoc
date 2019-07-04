@@ -30,9 +30,9 @@ Test the search engine with a curl command piped to https://stedolan.github.io/j
 
 The `c` optional parameter specifies the number of results to return (by default, 10.)
 
-== Note for Extending Docker Image
+== Indexing the Documentation
 
-For specific applications, the files `index/files.json` and `index/lunr.json` must be replaced with ad-hoc content extracted from other projects.
+For each specific applications, the files `index/files.json` and `index/lunr.json` must be replaced with ad-hoc content extracted from other projects, using the tool in the https://github.com/vshn/antora-indexer-cli[Antora Indexer CLI Tool].
 
 == nginx Configuration
 
