@@ -6,7 +6,7 @@ import express from 'express'
 import path from 'path'
 import fs from 'fs'
 import lunr from 'lunr'
-import 'log-timestamp';
+import 'log-timestamp'
 
 type FileRepository = { [ref: string]: SearchResult }
 
