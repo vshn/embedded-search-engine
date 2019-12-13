@@ -4,6 +4,7 @@
   "description": "An embedded search engine in Express to use in multi-container pods",
   "main": "index.js",
   "scripts": {
+    "dev": "node_modules/.bin/ts-node src/index.ts",
     "build": "tsc -p .",
     "start": "node dist/index.js"
   },

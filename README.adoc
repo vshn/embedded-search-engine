@@ -8,7 +8,19 @@ After cloning the repo, run `npm install` to install all the dependencies.
 
 The server runs with this command:
 
-`node_modules/.bin/ts-node src/index.ts`
+`npm run dev`
+
+== Compiling the Express.js Application
+
+Use the following command to build the production version of the application (in the `dist` folder):
+
+`npm run build`
+
+== Starting the Production Application
+
+Use the following command after compilation:
+
+`npm run start`
 
 == Building the Docker Image
 
@@ -18,7 +30,7 @@ Run the following command:
 
 A prebuilt Docker image is available at https://hub.docker.com/r/vshn/embedded-search-engine[Docker Hub.]
 
-== Running the Search Engine
+== Running the Search Engine Docker Image
 
 Use the following command:
 
