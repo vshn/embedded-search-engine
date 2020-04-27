@@ -27,7 +27,7 @@ function readJsonFileSync(filepath: string, encoding = 'utf8'): object {
  * @param file A valid filename
  */
 function getConfigSync(file: string): object {
-  const filepath = path.join(__dirname, '..', 'index', file)
+  const filepath = path.join('/site/index', file)
   return readJsonFileSync(filepath)
 }
 

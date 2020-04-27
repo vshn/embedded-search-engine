@@ -1,31 +1,30 @@
-# Step 1: Build the application with TypeScript
-FROM node:10.15.3-alpine AS builder
+# Step 1: Build the application
+FROM node:12.16.2-alpine3.11 AS builder
 
+RUN npm install -g pkg pkg-fetch
+ENV NODE node10
+ENV PLATFORM alpine
+ENV ARCH x64
+RUN /usr/local/bin/pkg-fetch ${NODE} ${PLATFORM} ${ARCH}
+
+# Build the application
 WORKDIR /app
-COPY ["package.json", "package-lock.json", "./"]
-RUN npm install
 COPY . /app
+RUN npm install
 RUN npm run build
 
-
-# Step 2: Install only production libraries
-FROM node:10.15.3-alpine AS installer
-
-WORKDIR /app
-COPY ["package.json", "package-lock.json", "./"]
-RUN npm install --production
+# Package the result into a binary without dependencies
+RUN /usr/local/bin/pkg --targets ${NODE}-${PLATFORM}-${ARCH} dist/index.js -o server.bin
 
 
-# Step 3: Create the runtime image
-FROM astefanutti/scratch-node:10.15.3
-
-WORKDIR /site
+# Step 2: Create the runtime image
+FROM alpine:3.11
+RUN apk add --no-cache libstdc++
 COPY index /site/index
-COPY --from=installer /app/node_modules /site/node_modules
-COPY --from=builder /app/dist /site/dist
+COPY --from=builder /app/server.bin /node/bin/server
 EXPOSE 3000
 
 # Don't run as root even in plain docker
 USER 1001:0
 
-ENTRYPOINT ["node", "dist/index.js"]
+ENTRYPOINT ["/node/bin/server"]
