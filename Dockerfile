@@ -1,4 +1,4 @@
-FROM node:10.14.2-alpine
+FROM node:10.20.1-alpine
 
 LABEL \
     maintainer="vshn" \
