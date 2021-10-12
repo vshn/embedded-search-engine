@@ -1,5 +1,6 @@
 export default interface SearchResult {
 	name: string,
 	href: string,
-	excerpt: string
+	excerpt: string,
+	version: string
 }
