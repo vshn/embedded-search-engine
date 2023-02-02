@@ -1,5 +1,5 @@
 # Step 1: Build the application
-FROM node:12.22.7-alpine3.11 AS builder
+FROM node:16.13.0-alpine3.11 AS builder
 
 RUN npm install -g pkg pkg-fetch
 ENV NODE node10
