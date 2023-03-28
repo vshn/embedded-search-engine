@@ -22,19 +22,19 @@ Use the following command after compilation:
 
 `npm run start`
 
-== Building the Docker Image
+== Building the Container Image
 
 Run the following command:
 
-`docker build -t vshn/embedded-search-engine .`
+`podman build -t embedded-search-engine .`
 
-A prebuilt Docker image is available at https://hub.docker.com/r/vshn/embedded-search-engine[Docker Hub.]
+A prebuilt container image is available as a package in this project.
 
-== Running the Search Engine Docker Image
+== Running the Search Engine Container Image
 
 Use the following command:
 
-`docker run -d -p 8081:3000 vshn/embedded-search-engine`
+`podman run --detach --publish 8081:3000 ghcr.io/vshn/embedded-search-engine`
 
 Test the search engine with a curl command piped to https://stedolan.github.io/jq/[jq]:
 
