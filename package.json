@@ -1,6 +1,6 @@
 {
   "name": "search-engine",
-  "version": "1.4.0",
+  "version": "1.8.0",
   "description": "An embedded search engine in Express to use in multi-container pods",
   "main": "index.js",
   "scripts": {
