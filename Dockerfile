@@ -18,7 +18,7 @@ RUN /usr/local/bin/pkg --targets ${NODE}-${PLATFORM}-${ARCH} dist/index.js -o se
 
 
 # Step 2: Create the runtime image
-FROM docker.io/library/alpine:3.17
+FROM docker.io/library/alpine:3.18
 RUN apk add --no-cache libstdc++
 COPY index /site/index
 COPY --from=builder /app/server.bin /node/bin/server
