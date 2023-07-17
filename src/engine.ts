@@ -6,7 +6,7 @@ export type FileRepository = { [ref: string]: SearchResult }
 
 /**
  * Performs the actual search against the Lunr index.
- * This function takes a "version" parameter; if this parameter is "master" or "main", then all search
+ * This function takes a "version" parameter; if this parameter is "master", "main", or "default", then all search
  * results are included in the response. If a different value is provided, only those values are returned.
  * @param lunrIndex The Lunr.js index
  * @param files The repository of files
@@ -25,7 +25,7 @@ export function search(lunrIndex: lunr.Index, files: FileRepository, query: stri
     .filter((result: SearchResult) => {
       // This "or" statement short-circuits the evaluation: if "master" or "main" are mentioned,
       // the result is included; otherwise, if the version coincides, it is included.
-      if (version === 'master' || version === 'main' || result.version === version) {
+      if (version === 'master' || version === 'main' || version === 'default' || result.version === version) {
         return result
       }
     })

@@ -30,6 +30,14 @@ describe ('Search engine', () => {
     expect(results1).to.deep.equal(results2)
   })
 
+  it('the "default" version works just like "master"', () => {
+    const results1 = search(lunrIndex, files, 'backup', undefined, 'master')
+    const results2 = search(lunrIndex, files, 'backup', undefined, 'default')
+    expect(results1.length).to.equal(50)
+    expect(results2.length).to.equal(50)
+    expect(results1).to.deep.equal(results2)
+  })
+
   it('can be filtered by version', () => {
     const results = search(lunrIndex, files, 'backup', undefined, '0.1')
     expect(results.length).to.equal(7)
