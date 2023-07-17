@@ -7,10 +7,13 @@ ENV PLATFORM alpine
 ENV ARCH x64
 RUN /usr/local/bin/pkg-fetch ${NODE} ${PLATFORM} ${ARCH}
 
-# Build the application
+# Run tests
 WORKDIR /app
 COPY . /app
 RUN npm install
+RUN npm test
+
+# Build the application
 RUN npm run build
 
 # Package the result into a binary without dependencies
