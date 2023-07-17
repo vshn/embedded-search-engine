@@ -38,6 +38,11 @@ describe ('Search engine', () => {
     expect(results1).to.deep.equal(results2)
   })
 
+  it('does not return anything for non-existing versions', () => {
+    const results = search(lunrIndex, files, 'backup', undefined, 'savarasasa')
+    expect(results.length).to.equal(0)
+  })
+
   it('can be filtered by version', () => {
     const results = search(lunrIndex, files, 'backup', undefined, '0.1')
     expect(results.length).to.equal(7)
