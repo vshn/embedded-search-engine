@@ -17,7 +17,7 @@ RUN npm test
 RUN npm run build
 
 # Package the result into a binary without dependencies
-RUN /usr/local/bin/pkg --targets ${NODE}-${PLATFORM}-${ARCH} dist/index.js -o server.bin
+RUN /usr/local/bin/pkg --targets ${NODE}-${PLATFORM}-${ARCH} /app/dist/index.js -o server.bin
 
 
 # Step 2: Create the runtime image
