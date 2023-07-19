@@ -4,8 +4,7 @@ FROM docker.io/library/node:20-alpine3.17 AS builder
 RUN npm install -g pkg pkg-fetch
 ENV NODE node18
 ENV PLATFORM alpine
-ENV ARCH x64
-RUN /usr/local/bin/pkg-fetch ${NODE} ${PLATFORM} ${ARCH}
+RUN /usr/local/bin/pkg-fetch ${NODE} ${PLATFORM} ${TARGETARCH}
 
 # Run tests
 WORKDIR /app
@@ -17,7 +16,7 @@ RUN npm test
 RUN npm run build
 
 # Package the result into a binary without dependencies
-RUN /usr/local/bin/pkg --targets ${NODE}-${PLATFORM}-${ARCH} -o server.bin dist/src/index.js
+RUN /usr/local/bin/pkg --targets ${NODE}-${PLATFORM}-${TARGETARCH} -o server.bin dist/src/index.js
 
 
 # Step 2: Create the runtime image
