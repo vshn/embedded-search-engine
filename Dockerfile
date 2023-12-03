@@ -1,5 +1,5 @@
 # Step 1: Build the application
-FROM docker.io/library/node:20-alpine3.17 AS builder
+FROM docker.io/library/node:21-alpine3.17 AS builder
 
 RUN npm install -g pkg pkg-fetch
 ENV NODE node18
