@@ -20,7 +20,7 @@ RUN /usr/local/bin/pkg --targets ${NODE}-${PLATFORM}-${TARGETARCH} -o server.bin
 
 
 # Step 2: Create the runtime image
-FROM docker.io/library/alpine:3.18
+FROM docker.io/library/alpine:3.19
 RUN apk add --no-cache libstdc++
 COPY index /site/index
 COPY --from=builder /app/server.bin /node/bin/server
