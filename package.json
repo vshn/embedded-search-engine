@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
-    "@types/chai-as-promised": "^7.1.5",
+    "@types/chai-as-promised": "^8.0.0",
     "@types/lunr": "^2.3.2",
     "@types/mocha": "^10.0.1",
     "@types/node": "^12.12.17",
